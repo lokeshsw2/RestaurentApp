@@ -42,60 +42,60 @@ class Reservation extends Component {
         return(
             <ScrollView>
                 <View style={styles.formRow}>
-                <Text style={styles.formLabel}>Number of Guests</Text>
-                <Picker
-                    style={styles.formItem}
-                    selectedValue={this.state.guests}
-                    onValueChange={(itemValue, itemIndex) => this.setState({guests: itemValue})}>
-                    <Picker.Item label="1" value="1" />
-                    <Picker.Item label="2" value="2" />
-                    <Picker.Item label="3" value="3" />
-                    <Picker.Item label="4" value="4" />
-                    <Picker.Item label="5" value="5" />
-                    <Picker.Item label="6" value="6" />
-                </Picker>
+                    <Text style={styles.formLabel}>Number of Guests</Text>
+                    <Picker
+                        style={styles.formItem}
+                        selectedValue={this.state.guests}
+                        onValueChange={(itemValue, itemIndex) => this.setState({guests: itemValue})}>
+                        <Picker.Item label="1" value="1" />
+                        <Picker.Item label="2" value="2" />
+                        <Picker.Item label="3" value="3" />
+                        <Picker.Item label="4" value="4" />
+                        <Picker.Item label="5" value="5" />
+                        <Picker.Item label="6" value="6" />
+                    </Picker>
                 </View>
                 <View style={styles.formRow}>
-                <Text style={styles.formLabel}>Smoking/Non-Smoking?</Text>
-                <Switch
-                    style={styles.formItem}
-                    value={this.state.smoking}
-                    onTintColor='#512DA8'
-                    onValueChange={(value) => this.setState({smoking: value})}>
-                </Switch>
+                    <Text style={styles.formLabel}>Smoking/Non-Smoking?</Text>
+                    <Switch
+                        style={styles.formItem}
+                        value={this.state.smoking}
+                        onTintColor='#512DA8'
+                        onValueChange={(value) => this.setState({smoking: value})}>
+                    </Switch>
                 </View>
                 <View style={styles.formRow}>
-                <Text style={styles.formLabel}>Date and Time</Text>
-                <DatePicker
-                    style={{flex: 2, marginRight: 20}}
-                    date={this.state.date}
-                    format=''
-                    mode="datetime"
-                    placeholder="select date and Time"
-                    minDate="2017-01-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    } 
-                    }}
-                    onDateChange={(date) => {this.setState({date: date})}}
-                />
-                </View>
-                <View style={styles.formRow}>
-                <Button
-                    onPress={() => this.handleReservation()}
-                    title="Reserve"
-                    color="#512DA8"
-                    accessibilityLabel="Learn more about this purple button"
+                    <Text style={styles.formLabel}>Date and Time</Text>
+                    <DatePicker
+                        style={{flex: 2, marginRight: 20}}
+                        date={this.state.date}
+                        format=''
+                        mode="datetime"
+                        placeholder="select date and Time"
+                        minDate="2017-01-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                        dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 0
+                        },
+                        dateInput: {
+                            marginLeft: 36
+                        } 
+                        }}
+                        onDateChange={(date) => {this.setState({date: date})}}
                     />
+                </View>
+                <View style={styles.formRow}>
+                    <Button
+                        onPress={() => this.handleReservation()}
+                        title="Reserve"
+                        color="#512DA8"
+                        accessibilityLabel="Learn more about this purple button"
+                        />
                 </View>
                 <Modal animationType = {"slide"} transparent = {false}
                     visible = {this.state.showModal}

@@ -250,7 +250,8 @@ class Main extends Component {
 
   render() {
       return(
-          <View style= {{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight}} >
+          // <View style= {{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight}} >
+          <View style={{flex:1}}>
               <MainNavigator />
           </View>
       
