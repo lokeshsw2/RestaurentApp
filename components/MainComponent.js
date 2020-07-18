@@ -5,6 +5,7 @@ import  Contact  from "./ContactComponent";
 import Reservation from './ReservationComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import Favorites from './FavoriteComponent';
 import { View, Platform, Image, StyleSheet, ScrollView, Text } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import Constants from 'expo-constants';
@@ -135,6 +136,27 @@ const ReservationNavigator = createStackNavigator(
   }
 );
 
+const FavoritesNavigator = createStackNavigator(
+  {
+      Favorites: { screen: Favorites }
+  }, 
+  {
+      navigationOptions: ({ navigation }) => ({
+          headerStyle: {
+              backgroundColor: "#512DA8"
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+              color: "#fff"            
+          },
+          headerLeft: <Icon name="menu" size={24}
+          style = {{marginLeft: 15}} 
+          color= 'white'
+          onPress={ () => navigation.toggleDrawer() } /> 
+      })
+  }
+);
+
 
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
@@ -216,6 +238,21 @@ const MainNavigator = createDrawerNavigator({
           ),
         }
     },
+    Favorites: { 
+      screen: FavoritesNavigator,
+      navigationOptions: {
+        title: 'My Favorites',
+        drawerLabel: 'My Favorites',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='heart'
+            type='font-awesome'            
+            size={24}
+            color={tintColor}
+          />
+        ),
+      }
+    }, 
     Reservation: { 
       screen: ReservationNavigator,
       navigationOptions: {
@@ -230,7 +267,8 @@ const MainNavigator = createDrawerNavigator({
           />
         ),
       }
-  }
+    },
+    
     
 }, {
   drawerBackgroundColor: '#D1C4E9',
