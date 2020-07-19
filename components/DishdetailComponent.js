@@ -59,7 +59,7 @@ function RenderDish(props) {
                 props.toggleModal();
             }
 
-            return true;
+            return true; // returns true if panresponder ends.
         }
     })
 
@@ -207,7 +207,7 @@ class Dishdetail extends Component {
                         ratingColor='#FFD700'
                         ratingBackgroundColor='#FFFFFF'
                         ratingCount={5}
-                        onFinishRating={this.ratingCompleted}
+                        onFinishRating={(rating) => this.ratingCompleted(rating)}
                         style={{ paddingVertical: 10 }}
                         showRating='true'
                         startingValue={0}
