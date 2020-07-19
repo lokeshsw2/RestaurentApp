@@ -3,6 +3,9 @@ import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal, Aler
 import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
+import * as Permissions from 'expo-permissions';
+import * as Notifications from 'expo-notifications';
+
 
 
 class Reservation extends Component {
@@ -18,12 +21,43 @@ class Reservation extends Component {
         }
     }
 
+    
+
     static navigationOptions = {
         title: 'Reserve Table',
     };
 
     toggleModal() {
         this.setState({showModal: !this.state.showModal});
+    }
+
+    async obtainNotificationPermission() {
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        
+        return permission;
+    }
+
+    async presentLocalNotification(date) {
+       
+        await this.obtainNotificationPermission();
+        Notifications.presentNotificationAsync({
+            title: 'Your Reservation',
+            body: 'Reservation for '+ date + ' requested',
+            ios: {
+                sound: true
+            },
+            android: {
+                sound: true,
+                vibrate: true,
+                color: '#512DA8'
+            }
+        });
     }
 
     handleReservation() {
@@ -43,6 +77,7 @@ class Reservation extends Component {
                 {
                     text: 'OK',
                     onPress: () => {
+                        this.presentLocalNotification(this.state.date);
                         this.resetForm();
                     }
                 }
