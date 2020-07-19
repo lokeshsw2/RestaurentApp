@@ -25,8 +25,14 @@ function RenderDish(props) {
 
     let viewRef;
 
-    const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
+    const recognizeDragRtoL = ({ dx, dy }) => {
         if ( dx < -100 )
+            return true;
+        else
+            return false;
+    }
+    const recognizeDragLtoR = ({ dx, dy}) => {
+        if (dx > 100 )
             return true;
         else
             return false;
@@ -39,7 +45,7 @@ function RenderDish(props) {
         onPanResponderGrant: () => {viewRef.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));},
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
-            if (recognizeDrag(gestureState))
+            if (recognizeDragRtoL(gestureState)) {
                 Alert.alert(
                     'Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -49,10 +55,15 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+            } else if(recognizeDragLtoR(gestureState)) {
+                props.toggleModal();
+            }
 
             return true;
         }
     })
+
+
     
     if (dish != null) {
         return(
@@ -60,7 +71,8 @@ function RenderDish(props) {
                 ref={(ref) => {
                     viewRef=ref;
                 }} 
-                {...panResponder.panHandlers}>
+                {...panResponder.panHandlers}
+                >
                 <Card
                 featuredTitle={dish.name}
                 image={{uri: baseUrl + dish.image}}>
